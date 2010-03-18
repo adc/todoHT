@@ -1,0 +1,137 @@
+this is a reversing platform for bsd/linux x86
+
+it takes inspiration from secdev's python ptrace tool and vtrace and PAIMEI 
+
+libdasm + pydasm from nologin.org kicks ass
+
+MAJOR TODO:
+	-> use secdevs ptrace interface, its much nicer
+		(could simplify it though)
+
+TODO:
+	merge x86 helper functions and target interface: status =almost complete
+
+	halting problem
+
+
+Features:
+	. hit trace debugging
+	. more useful disassembly
+	. major c++ features
+	. vtti
+	Dwarf
+	OS X support
+
+Goals:
+	-> be resilient to failure and true to execution. gdb, ltrace fail on stripped binaries, 
+		they depend on section headers + symbol information (which are independent of 
+		data+execution)
+	   most tools fail miserably with corrupted shdr information
+	
+	...
+	
+	-> Allow for flexible, interactive annotations 
+	
+	-> Allow active reversing from opcodez -> C 
+	
+
+Contributions Wanted:
+	-> GUI
+   	    ... annotations
+	    ... pretty graphs
+	-> user config for colors
+	-> scripting interface for annotating functions and code patterns
+		(IL representation may be needed)
+------------
+Code guidelines
+
+target.py
+	-> abstracted interface for dealing with binary formats and
+		architectures
+elf.py
+	-> everything ELF related
+		platform specific ELF things go in here as well (and may be messy)
+		keep code related stuff out of here, this is just for the file format
+x86.py
+	-> lower level implementations for x86
+	:: finding functions
+	:: making graphs
+	:: disassembling
+	:: resolving extended info 
+		(the format itself should do most of symbols)
+breakpoints.py
+	-> abstracted interface for dealing with debugging information
+	things to fully support on each architecture
+		1) Breakpoints
+			hardware (debug registers) and software (int3s)
+			single-stepping [if supported]
+			
+		2) Reading/Writing to another processes' memory space
+		
+		3) Hooks
+			Support for hooking the entry and exit points
+			of routines or specified memory addresses.
+
+platforms.py
+	platform implementations of things
+		-> breakpoints.py support
+		-> ?
+
+trace.py
+	-> use the above functionality to trace a process
+		(and fuzz input / monitor code coverage/ or whatever the goal may be)
+
+main.py
+	-> does some stuff
+		
+-----------------------------------
+A Target() should implement the following
+
+data
+	.segments	list of memory segments
+	.mem		sliceabley accessible memory (read-only for a file, rw for a running proc)
+
+	.functions	list of function code blocks
+	.blocks		XXX
+
+	.imports	XXX list of imported functions (from libraries, etc)
+	.exports	XXX list of exported functions 
+
+	.symbols	XXX list of all symbols
+	.format		XX binary format of the target
+	
+
+add_func(addr)
+has_func(addr)		
+find_func(addr)		
+find_functions()	scan for all functions 
+resolve_symbols()	use resolver info/debugging data to find symbols
+
+disas(addr, sz=0)	dump code starting at memory address until a reasonable end or specified end
+
+
+dump_symbols()		XXX 
+dump_code() 		display all code to stdout, make it pretty and useful if possible
+-=-=-
+Active targets
+
+	mem[] array is writeable :: XXX todo
+	
+	TESTING TODO: DONE , seems to work
+			FreeBSD 
+	attach()
+	detach()
+	start()
+	end()
+	cont()
+	stop()
+	read()
+	write()
+	getregs()
+	setregs()
+	getpc()
+	setpc()
+	get_events()
+
+
+        

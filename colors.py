@@ -1,0 +1,37 @@
+COLORS = 1
+
+RESET = '\x1B[0m'
+BD = '\x1B[1m'
+IT = '\x1B[3m'
+BDOFF = '\x1B[22m'
+ITOFF = '\x1B[23m'
+#non bold colors with reset to turn any other bold off
+BLACKfg = '\x1B[0m\x1B[30m'
+REDfg = '\x1B[0m\x1B[31m'
+GREENfg = '\x1B[0m\x1B[32m'
+YELLOWfg = '\x1B[0m\x1B[33m'
+BLUEfg = '\x1B[0m\x1B[34m'
+PURPLEfg = '\x1B[0m\x1B[35m'
+CYANfg = '\x1B[0m\x1B[36m'
+WHITEfg = '\x1B[0m\x1B[37m'
+#bold colors
+BLACKfgB = '\x1B[1m\x1B[30m'
+REDfgB = '\x1B[1m\x1B[31m'
+GREENfgB = '\x1B[1m\x1B[32m'
+YELLOWfgB = '\x1B[1m\x1B[33m'
+BLUEfgB = '\x1B[1m\x1B[34m'
+PURPLEfgB = '\x1B[1m\x1B[35m'
+CYANfgB = '\x1B[1m\x1B[36m'
+WHITEfgB = '\x1B[1m\x1B[37m'
+#background colors
+BLACKbg = '\x1B[40m'
+REDbg = '\x1B[41m'
+GREENbg = '\x1B[42m'
+YELLOWbg = '\x1B[43m'
+BLUEbg = '\x1B[44m'
+PURPLEbg = '\x1B[45m'
+CYANbg = '\x1B[46m'
+WHITEbg = '\x1B[47m'
+#MISC
+UNDER = '\x1B[4m'        
+FLASH = '\x1B[5m'
